@@ -1,29 +1,3 @@
-<template>
-  <LMap
-    v-if="store.center"
-    :zoom="zoom"
-    :center="store.center"
-    style="height: calc(100vh - 108px); width: 100%"
-    ref="mapInstance"
-  >
-    <LTileLayer
-      url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-      :attribution="attribution"
-    />
-    <LPolygon
-      v-for="(polygon, index) in polygons.features"
-      :key="index"
-      :lat-lngs="polygon.geometry.coordinates"
-      :color="getRandomColor()"
-      :fill="true"
-      :fillOpacity="0.5"
-      fillColor="#41b782"
-      :weight="10"
-    />
-    <LRectangle v-if="store.bounds" :bounds="store.bounds" />
-  </LMap>
-</template>
-
 <script setup>
 import { ref, computed, onBeforeMount, watch } from "vue";
 import {
@@ -89,6 +63,32 @@ onBeforeMount(() => {
   fetchCitiesList();
 });
 </script>
+
+<template>
+  <LMap
+    v-if="store.center"
+    :zoom="zoom"
+    :center="store.center"
+    style="height: calc(100vh - 108px); width: 100%"
+    ref="mapInstance"
+  >
+    <LTileLayer
+      url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+      :attribution="attribution"
+    />
+    <LPolygon
+      v-for="(polygon, index) in polygons.features"
+      :key="index"
+      :lat-lngs="polygon.geometry.coordinates"
+      :color="getRandomColor()"
+      :fill="true"
+      :fillOpacity="0.5"
+      fillColor="#41b782"
+      :weight="10"
+    />
+    <LRectangle v-if="store.bounds" :bounds="store.bounds" />
+  </LMap>
+</template>
 
 <style scoped>
 .show-btn {

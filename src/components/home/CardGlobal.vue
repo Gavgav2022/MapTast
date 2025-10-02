@@ -1,11 +1,3 @@
-<template>
-  <div class="place-card">
-    <h3 class="place-name">{{ place.data.name || place.data.display_name }}</h3>
-    <p class="place-country">{{ place.data.address.country }}</p>
-    <p class="place-district">{{ place.data.address.district }}</p>
-  </div>
-</template>
-
 <script setup>
 import { defineProps } from "vue";
 defineProps({
@@ -15,6 +7,14 @@ defineProps({
   },
 });
 </script>
+
+<template>
+  <div class="place-card">
+    <h3 class="place-name">{{ place.data.name || place.data.display_name }}</h3>
+    <p class="place-country">{{ place.data.address.country }}</p>
+    <p class="place-district">{{ place.data.address.district }}</p>
+  </div>
+</template>
 
 <style scoped lang="scss">
 .place-card {

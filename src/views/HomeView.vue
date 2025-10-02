@@ -1,3 +1,9 @@
+<script setup>
+import MainLayout from "@/layouts/MainLayout.vue";
+import LeftSidebar from "@/components/home/LeftSidebar.vue";
+import MapMain from "@/components/home/MapMain.vue";
+</script>
+
 <template>
   <MainLayout>
     <template #default>
@@ -10,12 +16,6 @@
     </template>
   </MainLayout>
 </template>
-
-<script setup>
-import MainLayout from "@/layouts/MainLayout.vue";
-import LeftSidebar from "@/components/home/LeftSidebar.vue";
-import MapMain from "@/components/home/MapMain.vue";
-</script>
 
 <style scoped>
 .home-view {

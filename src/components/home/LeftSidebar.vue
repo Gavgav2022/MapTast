@@ -1,3 +1,44 @@
+<script setup>
+import { ref, watch, onMounted } from "vue";
+import { useAppStore } from "@/store";
+import CustomLoader from "@/components/ui/CustomLoader.vue";
+import CardGlobal from "@/components/home/CardGlobal.vue";
+import PlaceDetail from "@/components/home/PlaceDetail.vue";
+const store = useAppStore();
+
+const filteredPlacesList = ref();
+const searchQuery = ref("");
+
+const filterPlaces = () => {
+  filteredPlacesList.value = store.cityCache?.filter((place) =>
+    place.data.name.toLowerCase().includes(searchQuery.value.toLowerCase())
+  );
+};
+
+const isCollapsed = ref(false);
+
+const toggleSidebar = () => {
+  isCollapsed.value = !isCollapsed.value;
+};
+
+const goToCard = (place) => {
+  const newBounds = [
+    [Number(place.data.boundingbox[0]), Number(place.data.boundingbox[3])],
+    [Number(place.data.boundingbox[1]), Number(place.data.boundingbox[2])],
+  ];
+  store.bounds = newBounds;
+  store.fetchPlaceDetails(place.data);
+};
+
+watch(store.cityCache, () => {
+  filterPlaces();
+});
+
+onMounted(() => {
+  filteredPlacesList.value = store.cityCache;
+});
+</script>
+
 <template>
   <div :class="['sidebar', { collapsed: isCollapsed }]">
     <button
@@ -44,47 +85,6 @@
     />
   </div>
 </template>
-
-<script setup>
-import { ref, watch, onMounted } from "vue";
-import { useAppStore } from "@/store";
-import CustomLoader from "@/components/ui/CustomLoader.vue";
-import CardGlobal from "@/components/home/CardGlobal.vue";
-import PlaceDetail from "@/components/home/PlaceDetail.vue";
-const store = useAppStore();
-
-const filteredPlacesList = ref();
-const searchQuery = ref("");
-
-const filterPlaces = () => {
-  filteredPlacesList.value = store.cityCache?.filter((place) =>
-    place.data.name.toLowerCase().includes(searchQuery.value.toLowerCase())
-  );
-};
-
-const isCollapsed = ref(false);
-
-const toggleSidebar = () => {
-  isCollapsed.value = !isCollapsed.value;
-};
-
-const goToCard = (place) => {
-  const newBounds = [
-    [Number(place.data.boundingbox[0]), Number(place.data.boundingbox[3])],
-    [Number(place.data.boundingbox[1]), Number(place.data.boundingbox[2])],
-  ];
-  store.bounds = newBounds;
-  store.fetchPlaceDetails(place.data);
-};
-
-watch(store.cityCache, () => {
-  filterPlaces();
-});
-
-onMounted(() => {
-  filteredPlacesList.value = store.cityCache;
-});
-</script>
 
 <style scoped lang="scss">
 .sidebar {

@@ -1,3 +1,15 @@
+<script setup>
+import { useAppStore } from "@/store";
+import CustomLoader from "@/components/ui/CustomLoader.vue";
+
+const store = useAppStore();
+
+const goBack = () => {
+  store.cityDetailData = null;
+  store.getBoundsMain();
+};
+</script>
+
 <template>
   <div class="place-detail">
     <button
@@ -63,18 +75,6 @@
     </div>
   </div>
 </template>
-
-<script setup>
-import { useAppStore } from "@/store";
-import CustomLoader from "@/components/ui/CustomLoader.vue";
-
-const store = useAppStore();
-
-const goBack = () => {
-  store.cityDetailData = null;
-  store.getBoundsMain();
-};
-</script>
 
 <style scoped lang="scss">
 /* Кнопка "Назад" */

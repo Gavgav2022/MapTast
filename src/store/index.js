@@ -1,10 +1,11 @@
 import polygons from "@/services/polygons.json";
 import { defineStore } from "pinia";
 import { ref, computed } from "vue";
-import axios from "axios";
 import * as turf from "@turf/turf";
+import { useApi } from "@/composables/useApi";
 
 export const useAppStore = defineStore("app", () => {
+  const { cityApi, mapApi } = useApi();
   const cityDetailData = ref();
   const mapData = ref([]);
   const cityCache = ref([]);
@@ -47,26 +48,7 @@ export const useAppStore = defineStore("app", () => {
     }
 
     try {
-      const response = await axios.get(
-        "https://nominatim.openstreetmap.org/reverse",
-        {
-          params: {
-            lat: coordinates[0],
-            lon: coordinates[1],
-            format: "json",
-            addressdetails: 1,
-          },
-        }
-      );
-      if (
-        response.data.addresstype !== "boundary" &&
-        response.data.addresstype !== "town" &&
-        response.data.addresstype !== "village" &&
-        response.data.addresstype !== "municipality" &&
-        response.data.addresstype !== "city"
-      ) {
-        return;
-      }
+      const response = await cityApi.fetchCityByCoordinates(coordinates);
       cityCache.value.push({
         key: { lat: coordinates[0], lon: coordinates[1] },
         data: response.data,
@@ -79,20 +61,26 @@ export const useAppStore = defineStore("app", () => {
   }
 
   async function fetchPlaceDetails(cityData) {
+    const cachedPlace = cityCache.value.find(
+      (item) => item.key.id === cityData.osm_id
+    );
+    if (cachedPlace) {
+      cityDetailData.value = cachedPlace.data;
+      return cachedPlace.data;
+    }
+
     try {
       isLoadingDetails.value = true;
-      const response = await axios.get(
-        `https://nominatim.openstreetmap.org/search`,
-        {
-          params: {
-            q: cityData.display_name,
-            format: "json",
-            addressdetails: 1,
-          },
-        }
-      );
+      const response = await cityApi.fetchPlaceDetails(cityData);
       cityDetailData.value = response.data[0];
+
+      cityCache.value.push({
+        key: { id: cityData.osm_id },
+        data: response.data[0],
+      });
+
       isLoadingDetails.value = false;
+      return response.data[0];
     } catch (error) {
       console.error("Ошибка при получении данных о населенном пункте:", error);
       isLoadingDetails.value = false;
@@ -110,13 +98,11 @@ export const useAppStore = defineStore("app", () => {
   }
 
   function getCenterPolygons(coordinates) {
-    const center = turf.center(turf.polygon(coordinates));
-    return center.geometry.coordinates;
+    return mapApi.getCenterPolygons(coordinates);
   }
 
   function getCenterSingle(coordinates) {
-    const center = turf.center(turf.points(coordinates));
-    return center.geometry.coordinates;
+    return mapApi.getCenterSingle(coordinates);
   }
 
   return {

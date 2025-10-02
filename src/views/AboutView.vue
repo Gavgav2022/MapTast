@@ -1,3 +1,7 @@
+<script setup>
+import MainLayout from "@/layouts/MainLayout.vue";
+</script>
+
 <template>
   <MainLayout>
     <template #default>
@@ -12,10 +16,6 @@
     </template>
   </MainLayout>
 </template>
-
-<script setup>
-import MainLayout from "@/layouts/MainLayout.vue";
-</script>
 
 <style scoped>
 .about {
