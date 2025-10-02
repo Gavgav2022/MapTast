@@ -6,7 +6,8 @@
     "dev": "vue-cli-service dev",
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "deploy": "gh-pages -d dist"
   },
   "dependencies": {
     "@turf/center-of-mass": "^7.2.0",

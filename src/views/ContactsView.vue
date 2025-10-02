@@ -198,7 +198,7 @@ async function handleSubmit() {
 }
 
 .contacts-page {
-  min-height: 100vh;
+  min-height: 100dvh;
   background: var(--bg);
   color: #0f172a;
   display: flex;

@@ -69,7 +69,7 @@ onBeforeMount(() => {
     v-if="store.center"
     :zoom="zoom"
     :center="store.center"
-    style="height: calc(100vh - 108px); width: 100%"
+    style="height: calc(100dvh - 108px); width: 100%"
     ref="mapInstance"
   >
     <LTileLayer

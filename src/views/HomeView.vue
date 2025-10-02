@@ -20,7 +20,7 @@ import MapMain from "@/components/home/MapMain.vue";
 <style scoped>
 .home-view {
   display: flex;
-  height: calc(100vh - 110px);
+  height: calc(100dvh - 110px);
   margin-bottom: 50px;
 }
 .map-container {
