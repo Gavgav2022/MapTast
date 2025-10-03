@@ -4,17 +4,15 @@
   </footer>
 </template>
 
-<script setup>
-// Здесь можно добавлять логику для футера, если нужно
-</script>
+<script setup></script>
 
 <style scoped>
 .footer {
+  height: 50px;
   background-color: #333;
   color: white;
-  padding: 1rem;
+  padding: 10px;
   text-align: center;
-  position: fixed;
   width: 100%;
   bottom: 0;
 }

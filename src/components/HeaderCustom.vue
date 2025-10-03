@@ -10,12 +10,11 @@
   </header>
 </template>
 
-<script setup>
-// Здесь можно добавлять логику для хедера, если нужно
-</script>
+<script setup></script>
 
 <style scoped>
 .header {
+  height: 58px;
   background-color: #333;
   color: white;
   padding: 5px;

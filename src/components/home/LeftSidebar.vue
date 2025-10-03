@@ -45,7 +45,11 @@ onMounted(() => {
       :class="['toggle-btn', { collapsed: isCollapsed }]"
       @click="toggleSidebar"
     >
-      ►
+      <img
+        class="toggle-icon"
+        src="@/assets/icons/arrow.svg"
+        alt="Toggle Sidebar"
+      />
     </button>
 
     <div :class="['search-box', { collapsed: isCollapsed }]">
@@ -91,7 +95,7 @@ onMounted(() => {
   position: relative;
   width: 100%;
   max-width: 300px;
-  padding: 20px 10px 0 10px;
+  padding: 15px 10px 0 10px;
   height: 100%;
   background-color: #f4f4f4;
   border-right: 1px solid #ddd;
@@ -164,20 +168,26 @@ onMounted(() => {
   overflow: hidden;
 }
 
+.toggle-icon {
+  width: 25px;
+}
+
 .toggle-btn {
   position: absolute;
   top: 20px;
   right: -10px;
   width: 30px;
   height: 30px;
-  background: #333;
+  background: #f89705;
   color: white;
   border: none;
-  padding: 10px;
   cursor: pointer;
   z-index: 10000;
-  font-size: 10px;
   border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transform: rotate(180deg);
   transition: all 0.3s ease;
 
   &:hover {
@@ -194,7 +204,7 @@ onMounted(() => {
 }
 
 .toggle-btn.collapsed {
-  transform: rotate(180deg);
+  transform: rotate(0);
 }
 
 .sidebar.collapsed .toggle-btn {

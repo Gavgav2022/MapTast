@@ -77,7 +77,6 @@ const goBack = () => {
 </template>
 
 <style scoped lang="scss">
-/* Кнопка "Назад" */
 .back-btn {
   margin-bottom: 10px;
   padding: 5px 10px;
