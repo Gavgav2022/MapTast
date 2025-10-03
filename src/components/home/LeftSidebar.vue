@@ -48,7 +48,7 @@ onMounted(() => {
       <img
         class="toggle-icon"
         src="@/assets/icons/arrow.svg"
-        alt="Toggle Sidebar"
+        alt="Toggle sidebar"
       />
     </button>
 
